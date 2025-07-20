@@ -28,3 +28,20 @@ mongoose.connect("mongodb+srv://mark72m:char2N'sLie@cluster0.gw7ljpr.mongodb.net
 app.listen(port, () => {
     console.log("Server is runninng on port 8000");
 });
+
+const User = require("./models/user");
+const Order = require("./models/order");
+
+// endpoint to register the app
+app.post("/register", async(req, res) => {
+    try {
+        const {name, email, password} = req.body;
+
+        // Check if email is already registered
+        const existingUser = await UserActivation.findOne({email})
+
+    } catch(error){
+        console.log("Error Registering User", error);
+        res.status(500).json({message: "Registration Failed..!"})
+    }
+})

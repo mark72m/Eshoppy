@@ -8,7 +8,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  //const [phone, setPhone] = useState('');
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#E9E9E9', alignItems: 'center', justifyContent: 'center' }}>
@@ -73,7 +73,7 @@ const RegisterScreen = () => {
           </View>
         </View>
 
-        {/* Phone Input */}
+        {/* Phone Input
         <View style={{ marginTop: 10 }}>
           <View style={{
             flexDirection: 'row',
@@ -92,7 +92,7 @@ const RegisterScreen = () => {
               }}
               placeholder='Enter Phone Number' />
           </View>
-        </View>
+        </View> */}
 
         {/* Password Input */}
         <View style={{ marginTop: 10 }}>
