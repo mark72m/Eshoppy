@@ -32,13 +32,43 @@ app.listen(port, () => {
 const User = require("./models/user");
 const Order = require("./models/order");
 
+// Function to send Verification Email to the User
+const sendVerificationEmail = async (email, verificationToken) => {
+    // Create a node Mailer Transport
+    const transporter = nodemailer.createTransport({
+        // Configure the email service
+        service: "gmail",
+        auth: {
+            user: "markmutisya72@gmail.com",
+            pass: 
+        }
+    })
+
+}
+
 // endpoint to register the app
 app.post("/register", async(req, res) => {
     try {
         const {name, email, password} = req.body;
 
         // Check if email is already registered
-        const existingUser = await UserActivation.findOne({email})
+        const existingUser = await UserActivation.findOne({email});
+        if (existingUser) {
+            return res.status(400).json({message: "Email Already Registered"});
+        }
+
+        // Create a new User
+        const newUser = new User({name, email, password});
+
+        // Generate and store Verification Token
+        newUser.verificatrionToken = crypto.randomBytes(20).toString("hex");
+
+        // Save User to Database
+        await newUser.save();
+
+        //send Verification Email to the User
+        sendVerificationEmail(newUser.email, newUser.verificationToken);
+
 
     } catch(error){
         console.log("Error Registering User", error);
