@@ -90,4 +90,28 @@ app.post("/register", async (req, res) => {
         console.log("Error Registering User", error);
         res.status(500).json({ message: "Registration Failed..!" })
     }
+});
+
+// Endpoint to verify the email
+app.get("/verify/:token", async (req, res) => {
+    try {
+        const token = req.params.token;
+
+        // Find the User with the given Verification Token
+        const user = await User.findOne({verificationToken: token});
+        if(!user) {
+            return res.status(404).json({message: "Invalid Verification Token"})
+        }
+
+        // Mark User as Verified
+        user.verified = true;
+        user.verificationToken = undefined;
+
+        await user.save();
+
+        res.status(200).json({message: "Email Verified Successfully..!"})
+
+    } catch(error) {
+        res.status(500).json({message: "Email Verification Failed..!"})
+    }
 })
