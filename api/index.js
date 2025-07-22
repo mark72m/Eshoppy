@@ -40,11 +40,27 @@ const sendVerificationEmail = async (email, verificationToken) => {
         service: "gmail",
         auth: {
             user: "markmutisya72@gmail.com",
-            pass: 
+            pass: "rtcy gxik hdeh sftu"
         }
     })
 
-}
+    // Compose the email Message
+    const mailOptions = {
+        from: "amazon.com",
+        to: email,
+        subject: "Email Verification",
+        text: `Click the Link to Verify Your Email : http://localhost:8000/verify/${verificationToken}`,
+    };
+
+    // Send the Email
+    try {
+        await transporter.sendMail(mailOptions);
+    } catch(error) {
+        console.log("Error Sending Verification Email", error)
+    }
+};
+
+
 
 // endpoint to register the app
 app.post("/register", async(req, res) => {
