@@ -55,7 +55,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
     // Send the Email
     try {
         await transporter.sendMail(mailOptions);
-    } catch(error) {
+    } catch (error) {
         console.log("Error Sending Verification Email", error)
     }
 };
@@ -63,18 +63,18 @@ const sendVerificationEmail = async (email, verificationToken) => {
 
 
 // endpoint to register the app
-app.post("/register", async(req, res) => {
+app.post("/register", async (req, res) => {
     try {
-        const {name, email, password} = req.body;
+        const { name, email, password } = req.body;
 
         // Check if email is already registered
-        const existingUser = await UserActivation.findOne({email});
+        const existingUser = await UserActivation.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({message: "Email Already Registered"});
+            return res.status(400).json({ message: "Email Already Registered" });
         }
 
         // Create a new User
-        const newUser = new User({name, email, password});
+        const newUser = new User({ name, email, password });
 
         // Generate and store Verification Token
         newUser.verificatrionToken = crypto.randomBytes(20).toString("hex");
@@ -86,8 +86,8 @@ app.post("/register", async(req, res) => {
         sendVerificationEmail(newUser.email, newUser.verificationToken);
 
 
-    } catch(error){
+    } catch (error) {
         console.log("Error Registering User", error);
-        res.status(500).json({message: "Registration Failed..!"})
+        res.status(500).json({ message: "Registration Failed..!" })
     }
 })
