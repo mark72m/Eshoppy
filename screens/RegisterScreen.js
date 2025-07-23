@@ -26,7 +26,7 @@ const RegisterScreen = () => {
       setPassword("");
       setEmail("");
     }).catch((error) => {
-      Alert.alert("Registration Error","An error occured during registration");
+      Alert.alert("Registration Error", "An error occured during registration");
       console.log("")
     })
   }

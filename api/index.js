@@ -49,7 +49,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
         from: "amazon.com",
         to: email,
         subject: "Email Verification",
-        text: `Click the Link to Verify Your Email : http://localhost:8000/verify/${verificationToken}`,
+        text: `Please Click the Link to Verify Your Email : http://localhost:8000/verify/${verificationToken}`,
     };
 
     // Send the Email
