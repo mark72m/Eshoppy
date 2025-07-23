@@ -1,30 +1,31 @@
-const mongose = require('mongose');
+const mongoose = require('mongoose');
 
-const userScheme = new mongose.Schema({
+const userScheme = new mongoose.Schema({
     name: {
         type: String,
-        reqquired: true
+        required: true
     },
     email: {
         type: String,
-        reqquired: true,
+        required: true,
         unique: true
     },
     password: {
         type: String,
-        reqquired: true
+        required: true
     },
     verified: {
         type: Boolean,
         default: false
     },
     verificationToken: String,
-    address: [
+    addresses: [
         {
             name: String,
             mobileNo: String,
             houseNo: String,
             street: String,
+            landmark: String,
             city: String,
             country: String,
             postalCode: String
@@ -33,7 +34,7 @@ const userScheme = new mongose.Schema({
     ],
     orders: [
         {
-            type: mongose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Order'
         }
     ],
@@ -44,5 +45,5 @@ const userScheme = new mongose.Schema({
 
 })
 
-const User = mongose.model('User', userScheme);
+const User = mongoose.model('User', userScheme);
 module.exports = User

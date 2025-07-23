@@ -15,15 +15,13 @@ app.use(bodyParser.json());
 const jwt = require('jsonwebtoken');
 
 mongoose.connect("mongodb+srv://mark72m:char2N'sLie@cluster0.gw7ljpr.mongodb.net/", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => {
-        console.log("Connected to MongoDB");
-    })
-    .catch((err) => {
-        console.log("Error Connecting to MongoDb", err);
-    });
+    //useNewUrlParser: true,
+    //useUnifiedTopology: true
+}).then(() => {
+    console.log("Connected to MongoDB");
+}).catch((err) => {
+    console.log("Error Connecting to MongoDb", err);
+});
 
 app.listen(port, () => {
     console.log("Server is runninng on port 8000");
@@ -98,9 +96,9 @@ app.get("/verify/:token", async (req, res) => {
         const token = req.params.token;
 
         // Find the User with the given Verification Token
-        const user = await User.findOne({verificationToken: token});
-        if(!user) {
-            return res.status(404).json({message: "Invalid Verification Token"})
+        const user = await User.findOne({ verificationToken: token });
+        if (!user) {
+            return res.status(404).json({ message: "Invalid Verification Token" })
         }
 
         // Mark User as Verified
@@ -109,9 +107,9 @@ app.get("/verify/:token", async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({message: "Email Verified Successfully..!"})
+        res.status(200).json({ message: "Email Verified Successfully..!" })
 
-    } catch(error) {
-        res.status(500).json({message: "Email Verification Failed..!"})
+    } catch (error) {
+        res.status(500).json({ message: "Email Verification Failed..!" })
     }
 })

@@ -36,7 +36,7 @@ const orderSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        mopbileNo: {
+        mobileNo: {
             type: String,
             required: true
         },
