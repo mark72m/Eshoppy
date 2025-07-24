@@ -14,9 +14,9 @@ app.use(bodyParser.json());
 
 const jwt = require('jsonwebtoken');
 
-mongoose.connect("mongodb+srv://mark72m:char2N'sLie@cluster0.gw7ljpr.mongodb.net/", {
-    //useNewUrlParser: true,
-    //useUnifiedTopology: true
+mongoose.connect("mongodb+srv://user72:user72@cluster0.gw7ljpr.mongodb.net/", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 }).then(() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {
@@ -66,7 +66,7 @@ app.post("/register", async (req, res) => {
         const { name, email, password } = req.body;
 
         // Check if email is already registered
-        const existingUser = await UserActivation.findOne({ email });
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "Email Already Registered" });
         }
@@ -75,7 +75,7 @@ app.post("/register", async (req, res) => {
         const newUser = new User({ name, email, password });
 
         // Generate and store Verification Token
-        newUser.verificatrionToken = crypto.randomBytes(20).toString("hex");
+        newUser.verificationToken = crypto.randomBytes(20).toString("hex");
 
         // Save User to Database
         await newUser.save();
